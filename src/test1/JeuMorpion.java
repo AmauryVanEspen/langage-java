@@ -115,41 +115,40 @@ public class JeuMorpion {
             return symbol = '0';
         }
     }
-    
-    public static boolean termine (char plateau[][]){
-        boolean partieTerminee=false;
-        char plateau[][] = afficherTableau();
-        if(true){
+
+    public static boolean termine(char plateau[][], char symbol) {
+        boolean partieTerminee = true;
+
+        for (int i = 0; i > 0 && i < 2; i++) {
+            for (int j = 0; j > 0 && j < 2; j++) {
+                if (plateau[i][j] == ' ') {
+                    partieTerminee = false;
+                }
+            }
+        }
+
+        for (int i = 0; i > 0 && i < 2; i++) {
+
+            if (plateau[i][0] == symbol && plateau[i][1] == symbol && plateau[i][2] == symbol) {
+                partieTerminee = true;
+            }
+        }
+
+        for (int i = 0; i > 0 && i < 2; i++) {
+
+            if (plateau[0][i] == symbol && plateau[1][i] == symbol && plateau[2][i] == symbol) {
+                partieTerminee = true;
+            }
+        }
+
+        if (plateau[0][0] == symbol && plateau[1][1] == symbol && plateau[2][2] == symbol) {
             partieTerminee = true;
         }
-        
-        if(plateau[0][0] = 'X' && plateau[0][1] = 'X' && plateau[0][2] = 'X'){
+
+        if (plateau[0][2] == symbol && plateau[1][1] == symbol && plateau[2][0] == symbol) {
             partieTerminee = true;
         }
-        if(plateau[1][0] = 'X' && plateau[1][1] = 'X' && plateau[1][2] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[2][0] = 'X' && plateau[2][1] = 'X' && plateau[2][2] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[0][0] = 'X' && plateau[1][0] = 'X' && plateau[2][0] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[1][0] = 'X' && plateau[1][1] = 'X' && plateau[2][1] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[2][0] = 'X' && plateau[2][1] = 'X' && plateau[2][2] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[0][0] = 'X' && plateau[1][1] = 'X' && plateau[2][2] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[2][0] = 'X' && plateau[1][1] = 'X' && plateau[0][2] = 'X'){
-            partieTerminee = true;
-        }
-        if(plateau[0][0] = ' ' && plateau[0][1] = ' ' && plateau[0][2] = ' ' && plateau[1][0] = ' ' && plateau[1][1] = ' ' && plateau[1][2] = ' ' && plateau[2][0] = ' ' && plateau[2][1] = ' ' && plateau[2][2] = ' '){
-            partieTerminee = true;
-        }
+
         return partieTerminee;
     }
 
@@ -176,12 +175,14 @@ public class JeuMorpion {
             }
         }
 
-        // Définir le tour de jeu
-        // fonction
-        tourDeJeu(joueur1, joueur2);
-        // Saisir dans le tableau
-        // en fonction du tour de jeu puis afficher
-        saisiTableau(symbol, plateau, plateauLo, plateauLa, tourDejeu);
-        afficherTableau(plateau);
+        do {
+            // Définir le tour de jeu
+            // fonction
+            tourDeJeu(joueur1, joueur2);
+            // Saisir dans le tableau
+            // en fonction du tour de jeu puis afficher
+            saisiTableau(symbol, plateau, plateauLo, plateauLa, tourDejeu);
+            afficherTableau(plateau);
+        }while(termine(plateau, symbol) == false);
     }
 }
