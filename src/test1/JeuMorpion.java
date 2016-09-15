@@ -119,22 +119,22 @@ public class JeuMorpion {
     public static boolean termine(char plateau[][], char symbol) {
         boolean partieTerminee = true;
 
-        for (int i = 0; i > 0 && i < 2; i++) {
-            for (int j = 0; j > 0 && j < 2; j++) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
                 if (plateau[i][j] == ' ') {
                     partieTerminee = false;
                 }
             }
         }
 
-        for (int i = 0; i > 0 && i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
 
             if (plateau[i][0] == symbol && plateau[i][1] == symbol && plateau[i][2] == symbol) {
                 partieTerminee = true;
             }
         }
 
-        for (int i = 0; i > 0 && i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
 
             if (plateau[0][i] == symbol && plateau[1][i] == symbol && plateau[2][i] == symbol) {
                 partieTerminee = true;
