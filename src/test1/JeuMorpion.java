@@ -38,14 +38,14 @@ public class JeuMorpion {
      * exister - l'emplacement doit être vide Remplir l'emplacement avec le
      * contenu
      *
-     * @param contenu
+     * @param symbol
      * @param plateau
      * @param lo
      * @param la
      * @param tourDeJeu
      * @throws java.io.IOException
      */
-    public static void saisiTableau(char contenu, char[][] plateau, int lo, int la, int tourDeJeu) throws IOException {
+    public static void saisiTableau(char symbol, char[][] plateau, int lo, int la, int tourDeJeu) throws IOException {
 
         // On choisit les coordoonées
         System.out.println("Choisissez les coordonnées du plateau");
@@ -68,7 +68,7 @@ public class JeuMorpion {
             System.out.println("Les coordonnées choisies ne sont pas disponibles");
         } else {
             //Saisir contenu dans l'emplacement
-            plateau[x][y] = contenu;
+            plateau[x][y] = symbol;
         }
 
         // Saisir et afficher
@@ -88,26 +88,26 @@ public class JeuMorpion {
         }
     }
 
-    public static int tourDeJeu(String nomJoueur1, String nomJoueur2) {
-        int tourDeJeu = 0;
+    /**
+     *
+     * @param nomJoueur1
+     * @param nomJoueur2
+     * @param tourDeJeu
+     * @return
+     */
+    public static int tourDeJeu(String nomJoueur1, String nomJoueur2, int tourDeJeu, char symbol) {
 
-        String joueur1 = nomJoueur1;
-        String joueur2 = nomJoueur2;
-
-        if (tourDeJeu != 0) {
-            if (tourDeJeu != 0) {
-                System.out.println(joueur1 + " Tour n°" + tourDeJeu);
-                tourDeJeu++;
-            } else {
-                System.out.println(joueur2 + " Tour n°" + tourDeJeu);
-            }
-            tourDeJeu++;
+        if (tourDeJeu % 2 == 1) {
+            System.out.println(nomJoueur1 + " Tour n° " + tourDeJeu + " pour " + symbol);
+            return tourDeJeu++;
+        } else {
+            System.out.println(nomJoueur2 + " Tour n° " + tourDeJeu + " pour " + symbol);
+            return tourDeJeu++;
         }
-        return tourDeJeu;
+//        symbol(tourDeJeu, symbol);
     }
 
-    public static char symbol(int tourDeJeu) {
-        char symbol = ' ';
+    public static char symbol(int tourDeJeu, char symbol) {
 
         if (tourDeJeu % 2 == 1) {
             return symbol = 'X';
@@ -160,12 +160,11 @@ public class JeuMorpion {
         System.out.print("Bienvenue à " + joueur1 + " & " + joueur2 + "\nLa partie peut commencer\n");
 
         // Récupérer le numéro de tour
-        int tourDejeu = tourDeJeu(joueur1, joueur2);
-
+        int tourDeJeu = 1;
         // Saisir la taille du plateau
         int plateauLa = 3;
         int plateauLo = 3;
-        char symbol = symbol(tourDejeu);
+        char symbol = symbol(tourDeJeu, ' ');
 
         // initialiser le tableau
         char[][] plateau = new char[plateauLa][plateauLo];
@@ -177,12 +176,12 @@ public class JeuMorpion {
 
         do {
             // Définir le tour de jeu
-            // fonction
-            tourDeJeu(joueur1, joueur2);
+            tourDeJeu(joueur1, joueur2, tourDeJeu, symbol);
             // Saisir dans le tableau
             // en fonction du tour de jeu puis afficher
-            saisiTableau(symbol, plateau, plateauLo, plateauLa, tourDejeu);
+            saisiTableau(symbol, plateau, plateauLo, plateauLa, tourDeJeu);
             afficherTableau(plateau);
-        }while(termine(plateau, symbol) == false);
+            tourDeJeu++; 
+        } while (termine(plateau, symbol) == false);
     }
 }
